@@ -5,9 +5,7 @@ import Navigation_cmp from "../components/Navigation_cmp";
 const Item_page = (props) => {
   return (
     <div className="container-fluid">
-      <div className="container mb-5">
-        <Navigation_cmp />
-      </div>
+      <Navigation_cmp />
       <div className="container pt-5">
         <div className="row mt-5">
           <div className="offset-2 col-4">

@@ -7,8 +7,8 @@ const Shop_page = (prop) => {
   const history = useHistory();
   return (
     <div className="container-fluid">
+      <Navigation_cmp />
       <div className="container">
-        <Navigation_cmp />
         <div className="row">
           <Item_card_cmp
             onClick={(e) => history.push("/item/" + e.target.id)}

@@ -6,10 +6,8 @@ import BasketRow_cmp from "../components/BasketRow_cmp";
 const Basket_page = (props) => {
   return (
     <div className="container-fluid">
-      <div className="container mb-5">
-        <Navigation_cmp />
-      </div>
-      <div className="container pt-5">
+      <Navigation_cmp />
+      <div className="container pt-4">
         <div className="row mt-5">
           <div className="col-8">
             <h2>Your Basket</h2>
@@ -21,19 +19,10 @@ const Basket_page = (props) => {
           <div className="offset-1 col-3">
             <h2>Order Summary</h2>
             <hr></hr>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
             <br></br>
 
             <h6 class="card-subtitle mb-2 text-muted">Qty</h6>
-            <select class="form-select" aria-label="Default select example">
-              <option selected>1</option>
-              {[2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-                <option value="1">{item}</option>
-              ))}
-            </select>
+            <h5 class="card-title">5</h5>
             <br></br>
             <h6 class="card-subtitle mb-2 text-muted">Discount Amount</h6>
             <h5 class="card-title">Rs.250.00</h5>

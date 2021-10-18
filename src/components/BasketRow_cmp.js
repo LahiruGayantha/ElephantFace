@@ -3,7 +3,7 @@ import Cart from "../assets/cart.png";
 
 const BasketRow_cmp = (props) => {
   return (
-    <div className="row">
+    <div className="row align-items-center">
       <div className="col-1">
         <img src={Cart} width={50} className="img-fluid shadow-sm " alt="..." />
       </div>
