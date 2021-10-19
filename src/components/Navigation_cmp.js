@@ -5,7 +5,7 @@ const Navigation_cmp = (props) => {
   return (
     <div
       style={{ backgroundColor: "wheat" }}
-      className="mb-5 row bg-secondary text-center align-items-center"
+      className="mb-2 row bg-secondary text-center align-items-center"
     >
       <div className="col-3 text-end">
         <img src={Logo} width={80} className="img-fluid" alt="..." />
@@ -21,19 +21,22 @@ const Navigation_cmp = (props) => {
           className="nav nav-masthead justify-content-left"
           style={{ color: "white", fontSize: 18 }}
         >
-          <a
-            style={{ color: "white" }}
-            className="nav-link active"
-            aria-current="page"
-            href="/"
-          >
-            Home
-          </a>
           <a style={{ color: "white" }} className="nav-link" href="/shop">
             Products
           </a>
           <a style={{ color: "white" }} className="nav-link" href="/basket">
             Cart
+          </a>
+          <a
+            style={{ color: "white" }}
+            className="nav-link active"
+            aria-current="page"
+            href=""
+            data-bs-toggle="modal"
+            data-bs-target="#confirmation_modal_cmp"
+            onClick={props.onClick}
+          >
+            Sign out
           </a>
         </nav>
       </div>

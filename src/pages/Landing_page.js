@@ -1,10 +1,38 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import Logo from "../assets/logo_nobackground.png";
 import Cart from "../assets/cart.png";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const Landing_page = (props) => {
   const history = useHistory();
+
+  const button = useRef(null);
+
+  const [credentials, setCredentials] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [errors, setErrors] = useState({
+    email: "",
+    password: "",
+  });
+
+  const submitButtonHandler = () => {
+    axios
+      .post("/auth/authentication", credentials)
+      .then((result) => {
+        if (result.data.authSuccess) {
+          history.push("/shop");
+          window.location.reload();
+        } else {
+          setErrors({ password: "Please enter correct password." });
+        }
+      })
+      .catch(setErrors({ email: "User does not exist." }));
+  };
+
   return (
     <div className="container-fluid bg-secondary">
       <div className="row text-left pt-5 w-100">
@@ -14,7 +42,7 @@ const Landing_page = (props) => {
         <div className="col-6">
           <div className="p-5 mb-4 rounded-3">
             <div className="container-fluid py-5" style={{ color: "white" }}>
-              <h4 className="display-6">Shope the way you like</h4>
+              <h4 className="display-6">Shop the way you like</h4>
               <h1 className="display-4 fw-bold">Elephant Face</h1>
               <p className="col fs-4">
                 Sign up to continue to your shoping jurney.
@@ -56,7 +84,7 @@ const Landing_page = (props) => {
           </div>
         </div>
       </footer>
-      <div className="modal fade" id="exampleModal" tabIndex="-1">
+      <div className="modal" id="exampleModal" tabIndex="-1">
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="modal-header">
@@ -71,7 +99,7 @@ const Landing_page = (props) => {
               ></button>
             </div>
             <div className="modal-body">
-              <form className="p-4">
+              <div className="p-4">
                 <div className="mb-3">
                   <label className="form-label">Email address</label>
                   <input
@@ -79,7 +107,19 @@ const Landing_page = (props) => {
                     className="form-control"
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
+                    value={credentials.email}
+                    onChange={(e) =>
+                      setCredentials((cur) => ({
+                        ...cur,
+                        email: e.target.value,
+                      }))
+                    }
                   />
+                  {errors.email != "" && (
+                    <div id="emailHelp" className="form-text text-danger">
+                      {errors.email}
+                    </div>
+                  )}
                 </div>
                 <div className="mb-3">
                   <label className="form-label">Password</label>
@@ -87,21 +127,31 @@ const Landing_page = (props) => {
                     type="password"
                     className="form-control"
                     id="exampleInputPassword1"
+                    value={credentials.password}
+                    onChange={(e) =>
+                      setCredentials((cur) => ({
+                        ...cur,
+                        password: e.target.value,
+                      }))
+                    }
                   />
+                  {errors.password != "" && (
+                    <div id="emailHelp" className="form-text text-danger">
+                      {errors.password}
+                    </div>
+                  )}
                 </div>
                 <div className="row">
                   <div className="col text-end">
                     <button
                       className="btn btn-primary"
-                      data-bs-toggle="modal"
-                      data-bs-target="#exampleModal"
-                      onClick={() => history.push("/shop")}
+                      onClick={() => submitButtonHandler()}
                     >
                       Submit
                     </button>
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>

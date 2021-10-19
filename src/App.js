@@ -13,7 +13,7 @@ function App() {
         <Route path="/shop">
           <Shop_page />
         </Route>
-        <Route path="/item/:value">
+        <Route path="/item/:id">
           <Item_page />
         </Route>
         <Route path="/basket">

@@ -1,8 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Cart from "../assets/cart.png";
 import Navigation_cmp from "../components/Navigation_cmp";
+import { useHistory, useParams } from "react-router";
+import axios from "axios";
 
 const Item_page = (props) => {
+  const history = useHistory();
+  const { id } = useParams();
+  const [data, setData] = useState({});
+
+  useEffect(() => {
+    axios.get("/item/find/" + id).then((result) => {
+      console.log();
+      setData({ ...result.data, qty: 1, amount: result.data.unitPrice });
+    });
+  }, []);
+
   return (
     <div className="container-fluid">
       <Navigation_cmp />
@@ -10,33 +23,42 @@ const Item_page = (props) => {
         <div className="row mt-5">
           <div className="offset-2 col-4">
             <img
-              src={Cart}
+              src={data.image}
               width={400}
               className="img-fluid shadow-sm border border-1"
               alt="..."
             />
           </div>
           <div className="col-4">
-            <h2>Mens Shirt</h2>
+            <h2>{data.name}</h2>
             <br></br>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+            <p class="card-text">{data.description}</p>
             <br></br>
             <h6 class="card-subtitle mb-2 text-muted">Unit Price</h6>
-            <h5 class="card-title">Rs.250.00</h5>
+            <h5 class="card-title">Rs. {data.unitPrice}</h5>
             <br></br>
             <h6 class="card-subtitle mb-2 text-muted">Qty</h6>
-            <select class="form-select" aria-label="Default select example">
+            <select
+              value={data.qty}
+              onChange={(e) =>
+                setData((cur) => ({
+                  ...cur,
+                  qty: e.target.value,
+                  amount:
+                    parseFloat(cur.unitPrice) * parseFloat(e.target.value),
+                }))
+              }
+              class="form-select"
+              aria-label="Default select example"
+            >
               <option selected>1</option>
               {[2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-                <option value="1">{item}</option>
+                <option value={item}>{item}</option>
               ))}
             </select>
             <br></br>
             <h6 class="card-subtitle mb-2 text-muted">Amount</h6>
-            <h3 class="card-title">Rs.250.00</h3>
+            <h3 class="card-title">Rs. {data.amount}</h3>
             <br />
             <button
               type="button"

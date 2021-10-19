@@ -1,10 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import Item_card_cmp from "../components/Item_card_cmp";
 import Navigation_cmp from "../components/Navigation_cmp";
+import Confirmation_modal_cmp from "../components/Confirmation_modal_cmp";
+import axios from "axios";
 
-const Shop_page = (prop) => {
+const Shop_page = (props) => {
   const history = useHistory();
+
+  const [dataSet, setDataSet] = useState([{}]);
+
+  const getItems = () => {
+    axios
+      .get("/item/all")
+      .then((result) => {
+        console.log(result.data);
+        setDataSet(result.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
   return (
     <div className="container-fluid">
       <Navigation_cmp />
@@ -12,7 +31,7 @@ const Shop_page = (prop) => {
         <div className="row">
           <Item_card_cmp
             onClick={(e) => history.push("/item/" + e.target.id)}
-            data={[1, 2, 3, 4, 5, 6, 7, 8, 9, 9, 9]}
+            data={dataSet}
           />
         </div>
       </div>
@@ -25,6 +44,11 @@ const Shop_page = (prop) => {
           </div>
         </div>
       </footer>
+      <Confirmation_modal_cmp
+        onClickBtn2={() => {
+          history.push("/cart");
+        }}
+      />
     </div>
   );
 };
