@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import Item_card_cmp from "../components/Item_card_cmp";
 import Navigation_cmp from "../components/Navigation_cmp";
-import Confirmation_modal_cmp from "../components/Confirmation_modal_cmp";
 import axios from "axios";
 
 const Shop_page = (props) => {
@@ -27,6 +26,7 @@ const Shop_page = (props) => {
   return (
     <div className="container-fluid">
       <Navigation_cmp />
+
       <div className="container">
         <div className="row">
           <Item_card_cmp
@@ -44,11 +44,6 @@ const Shop_page = (props) => {
           </div>
         </div>
       </footer>
-      <Confirmation_modal_cmp
-        onClickBtn2={() => {
-          history.push("/cart");
-        }}
-      />
     </div>
   );
 };

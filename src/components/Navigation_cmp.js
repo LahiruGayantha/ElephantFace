@@ -1,7 +1,14 @@
 import React from "react";
 import Logo from "../assets/logo_nobackground.png";
+import Confirmation_modal_cmp from "./Confirmation_modal_cmp";
+import { useHistory } from "react-router";
+import { useSelector } from "react-redux";
 
 const Navigation_cmp = (props) => {
+  const history = useHistory();
+  const logedInUser = useSelector((state) => state.user.lastName);
+  console.log(logedInUser);
+
   return (
     <div
       style={{ backgroundColor: "wheat" }}
@@ -38,8 +45,16 @@ const Navigation_cmp = (props) => {
           >
             Sign out
           </a>
+          <a style={{ color: "white" }} className="nav-link" href="/basket">
+            {logedInUser}
+          </a>
         </nav>
       </div>
+      <Confirmation_modal_cmp
+        onClickBtn2={() => {
+          history.push("/cart");
+        }}
+      />
     </div>
   );
 };
