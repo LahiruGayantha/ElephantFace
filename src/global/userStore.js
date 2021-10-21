@@ -1,14 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+export const initialState = {
+  authSuccess: false,
+  firstName: "",
+  lastName: "",
+  email: "",
+  id: "",
+  type: "",
+};
+
 export const userWorks = createSlice({
   name: "user",
-  initialState: {
-    authSuccess: false,
-    firstName: "",
-    lastName: "",
-    email: "",
-    id: "",
-  },
+  initialState: initialState,
   reducers: {
     changeUser: (state, action) => {
       state.firstName = action.payload.firstName;
@@ -16,6 +19,7 @@ export const userWorks = createSlice({
       state.email = action.payload.email;
       state.id = action.payload.id;
       state.authSuccess = action.payload.authSuccess;
+      state.type = action.payload.type;
     },
   },
 });

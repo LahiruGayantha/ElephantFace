@@ -4,7 +4,7 @@ const confirmation_modal_cmp = (props) => {
   return (
     <div
       class="modal fade"
-      id="confirmation_modal_cmp"
+      id={props.id}
       tabindex="-1"
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
@@ -12,7 +12,7 @@ const confirmation_modal_cmp = (props) => {
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Warning</h5>
+            <h5 class="modal-title">{props.type}</h5>
             <button
               type="button"
               class="btn-close"
@@ -21,7 +21,7 @@ const confirmation_modal_cmp = (props) => {
             ></button>
           </div>
           <div class="modal-body">
-            <p>Are you sure?</p>
+            <p>{props.message}</p>
           </div>
           <div class="modal-footer">
             <button
@@ -37,7 +37,7 @@ const confirmation_modal_cmp = (props) => {
               class="btn btn-primary"
               data-bs-dismiss="modal"
             >
-              Sign Out
+              {props.mainBtnText}
             </button>
           </div>
         </div>

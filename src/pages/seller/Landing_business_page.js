@@ -1,13 +1,16 @@
 import React, { useRef, useState } from "react";
-import Logo from "../assets/logo_nobackground.png";
-import Cart from "../assets/cart.png";
+import Logo from "../../assets/logo_nobackground.png";
+import Cart from "../../assets/cart.png";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { changeUser } from "../global/userStore";
+import { changeUser } from "../../global/userStore";
+import { useRouteMatch } from "react-router-dom";
 
-const Landing_page = (props) => {
+const Landing_business_page = (props) => {
   const dispatch = useDispatch();
+
+  const { path, url } = useRouteMatch();
 
   const history = useHistory();
 
@@ -28,9 +31,12 @@ const Landing_page = (props) => {
       .post("/auth/authentication", credentials)
       .then((result) => {
         if (result.data.authSuccess) {
-          dispatch(changeUser({ ...result.data }));
-          history.push("/shop");
-          // window.location.reload();
+          if (result.data.type === "seller") {
+            dispatch(changeUser({ ...result.data }));
+            history.push("/seller/shop");
+          } else {
+            setErrors({ email: "Above user is not a seller.", password: "" });
+          }
         } else {
           setErrors({ password: "Please enter correct password.", email: "" });
         }
@@ -39,19 +45,19 @@ const Landing_page = (props) => {
   };
 
   return (
-    <div className="container-fluid bg-secondary">
+    <div className="container-fluid" style={{ backgroundColor: "#f79c4d" }}>
       <div className="row text-left pt-5 w-100">
         <div className="col-6 text-end">
           <img src={Logo} width={400} className="img-fluid" alt="..." />
         </div>
         <div className="col-6">
-          <div className="p-2 rounded-3">
-            <div className="container-fluid py-5" style={{ color: "white" }}>
-              <h4 className="display-6">Shop the way you like !</h4>
+          <div className=" rounded-3">
+            <div className="container-fluid py-5" style={{ color: "black" }}>
+              <h4 className="display-6">Be a part of Us !</h4>
               <h1 className="display-4 fw-bold">Elephant Face</h1>
-              <p className="col fs-4">Sign in to shoping</p>
+              <p className="col fs-4">Sign in to make your shop</p>
               <div className="col-4">
-                <div className="">
+                <div className="mb-2">
                   <label className="form-label">Email address</label>
                   <input
                     type="email"
@@ -69,7 +75,7 @@ const Landing_page = (props) => {
                   {errors.email != "" && (
                     <div
                       id="emailHelp"
-                      style={{ color: "pink" }}
+                      style={{ color: "white" }}
                       className="form-text"
                     >
                       **{errors.email}
@@ -93,10 +99,10 @@ const Landing_page = (props) => {
                   {errors.password != "" && (
                     <div
                       id="emailHelp"
-                      style={{ color: "pink" }}
+                      style={{ color: "white" }}
                       className="form-text"
                     >
-                      {errors.password}
+                      **{errors.password}
                     </div>
                   )}
                 </div>
@@ -123,25 +129,91 @@ const Landing_page = (props) => {
           </div>
         </div>
       </div>
-      <div className="row pt-4 bg-white">
-        <div className="col-6 mt-5 text-end">
-          <div className="p-5">
-            <h4 className="display-6">Are you a smart seller?</h4>
-            <p className="col fs-4">
-              Join with us to make your own digital shop
-            </p>
-            <div className="col text-end">
-              <button
-                className="btn btn-outline-primary"
-                onClick={() => history.push("/seller")}
-              >
-                Join Now !
-              </button>
+      <div
+        className="col-2 bg-white text-center offset-5"
+        style={{
+          borderTopRightRadius: 100,
+          borderTopLeftRadius: 100,
+          padding: 5,
+          fontSize: 25,
+          fontWeight: "bold",
+        }}
+      >
+        <h4 style={{ color: "#f79c4d", paddingTop: 10 }}>Our Clients</h4>
+      </div>
+      <div className="row pt-4 bg-white justify-content-center">
+        <div className="row mt-4 mb-4 text-center w-100">
+          <div className="offset-3 col-2">
+            <div className="card shadow-sm">
+              <img
+                width={"100%"}
+                height={150}
+                src={
+                  "https://www.hsbc.lk/content/dam/hsbc/lk/images/credit-cards/offers/16-9/keels-logo-pwsimg-1400.jpg"
+                }
+              />
+              <div className="card-body">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="btn-group">
+                    <a
+                      href="https://www.keellssuper.com/"
+                      target="_blank"
+                      type="button"
+                      className="btn btn-sm btn-outline-secondary"
+                    >
+                      Details
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="col-6 text-start">
-          <img src={Cart} width={300} className="img-fluid" alt="..." />
+          <div className="col-2">
+            <div className="card shadow-sm">
+              <img
+                width={"100%"}
+                height={150}
+                src="https://www.cargillsceylon.com/images/cargillslogo.png"
+              />
+              <div className="card-body">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="btn-group">
+                    <a
+                      href="https://cargillsonline.com/"
+                      target="_blank"
+                      type="button"
+                      className="btn btn-sm btn-outline-secondary"
+                    >
+                      Details
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="col-2">
+            <div className="card shadow-sm">
+              <img
+                width={"100%"}
+                height={150}
+                src="https://www.isic.lk/uploads/glomark/Glowmark.jpg"
+              />
+              <div className="card-body">
+                <div className="d-flex justify-content-between align-items-center">
+                  <div className="btn-group">
+                    <a
+                      href="https://glomark.lk/"
+                      target="_blank"
+                      type="button"
+                      className="btn btn-sm btn-outline-secondary"
+                    >
+                      Details
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <footer
@@ -178,4 +250,4 @@ const Landing_page = (props) => {
   );
 };
 
-export default Landing_page;
+export default Landing_business_page;

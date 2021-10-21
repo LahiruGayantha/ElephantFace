@@ -1,9 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navigation_cmp from "../components/Navigation_cmp";
-import Cart from "../assets/cart.png";
 import BasketRow_cmp from "../components/BasketRow_cmp";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Basket_page = (props) => {
+  const userId = useSelector((state) => state.user.id);
+
+  const [dataset, setDataset] = useState([]);
+
+  const [summary, setSummary] = useState({
+    qty: 0,
+    dAmount: 0,
+    amount: 0,
+  });
+
+  const loadBasket = () => {
+    axios
+      .get("/cart/all/" + userId)
+      .then((result) => {
+        setDataset(result.data);
+        let qt = 0;
+        let amount = 0;
+        result.data.forEach((element) => {
+          qt = qt + element.itemQty;
+          amount =
+            amount +
+            parseInt(element.itemQty) * parseInt(element.item.unitPrice);
+        });
+        setSummary({
+          qty: qt,
+          dAmount: 0,
+          amount: amount,
+        });
+      })
+      .catch((e) => console.log(e));
+  };
+
+  const deleteItem = (id) => {
+    axios.delete("/cart/delete/" + id).then((result) => loadBasket());
+  };
+
+  const updateItem = (id, item_id, user_id, qty) => {
+    axios
+      .put("/cart/update/" + id, {
+        itemId: item_id,
+        itemQty: qty,
+        userId: user_id,
+      })
+      .then(() => loadBasket());
+  };
+
+  useEffect(() => {
+    loadBasket();
+  }, []);
+
   return (
     <div className="container-fluid">
       <Navigation_cmp />
@@ -12,8 +63,17 @@ const Basket_page = (props) => {
           <div className="col-8">
             <h2>Your Basket</h2>
             <hr></hr>
-            {[1, 2, 3, 4, 5].map((item) => (
-              <BasketRow_cmp />
+            {dataset.map((item) => (
+              <BasketRow_cmp
+                deleteBtnOnClick={() => deleteItem(item.id)}
+                image={item.item.image}
+                name={item.item.name}
+                qty={item.itemQty}
+                uPrice={item.item.unitPrice}
+                saveEditBtn={(e) =>
+                  updateItem(item.id, item.item.id, userId, e)
+                }
+              />
             ))}
           </div>
           <div className="offset-1 col-3">
@@ -22,13 +82,13 @@ const Basket_page = (props) => {
             <br></br>
 
             <h6 class="card-subtitle mb-2 text-muted">Qty</h6>
-            <h5 class="card-title">5</h5>
+            <h5 class="card-title">{summary.qty}</h5>
             <br></br>
             <h6 class="card-subtitle mb-2 text-muted">Discount Amount</h6>
-            <h5 class="card-title">Rs.250.00</h5>
+            <h5 class="card-title">Rs. {summary.dAmount}</h5>
             <br></br>
             <h6 class="card-subtitle mb-2 text-muted">Amount</h6>
-            <h3 class="card-title">Rs.250.00</h3>
+            <h3 class="card-title">Rs. {summary.amount}</h3>
             {/* <br />
             <button
               type="button"
@@ -53,42 +113,6 @@ const Basket_page = (props) => {
           </div>
         </div>
       </footer>
-      <div
-        class="modal fade"
-        id="exampleModal"
-        tabindex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button type="button" class="btn btn-primary">
-                Save changes
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
