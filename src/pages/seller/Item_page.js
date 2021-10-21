@@ -121,6 +121,7 @@ const Item_page = (props) => {
                 placeholder="Description"
                 value={data.description}
                 onChange={(e) => textChange("description", e.target.value)}
+                rows="12"
               ></textarea>
             </div>
             <div class="input-group mb-3">

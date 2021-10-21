@@ -1,4 +1,5 @@
 import React from "react";
+import Confirmation_modal_cmp from "./Confirmation_modal_cmp";
 
 const Item_card_cmp = (props) => {
   return (
@@ -11,7 +12,11 @@ const Item_card_cmp = (props) => {
             <div className="card-body">
               <p className="card-text">{item.name}</p>
               <div className="d-flex justify-content-between align-items-center">
-                <small className="text-muted">Rs.{item.unitPrice}</small>
+                <small className="text-muted">
+                  {item.id !== ""
+                    ? "Rs ." + item.unitPrice
+                    : "" + item.unitPrice}
+                </small>
                 <div className="btn-group">
                   <button
                     type="button"
@@ -19,12 +24,28 @@ const Item_card_cmp = (props) => {
                     className="btn btn-sm btn-outline-secondary"
                     onClick={props.onClick}
                   >
-                    Add to cart
+                    {item.id === "" ? "Create" : "Edit"}
                   </button>
+                  {!(item.id === "") && (
+                    <button
+                      type="button"
+                      id={item.id}
+                      className="btn btn-sm btn-outline-danger"
+                      onClick={props.onClickDelete}
+                    >
+                      Delete
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           </div>
+          <Confirmation_modal_cmp
+            mainBtnText="Yes"
+            id="seller_item_delete_confirmation_modal_cmp"
+            type="Confirmation"
+            message="Are you sure?"
+          />
         </div>
       ))}
     </div>

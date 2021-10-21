@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import Item_card_cmp from "../../components/Item_card_cmp";
+import Item_card_cmp from "../../components/Item_card_seller_cmp";
 import Navigation_cmp from "../../components/Navigation_seller_cmp";
 import axios from "axios";
 import { useSelector } from "react-redux";
@@ -26,7 +26,7 @@ const Shop_page = (props) => {
             image:
               "https://cdn.pixabay.com/photo/2017/04/20/07/07/add-2244771_960_720.png",
             name: "Create new item",
-            unitPrice: "",
+            unitPrice: "Post items to expan your shop.",
             id: "",
           },
           ...result.data,
@@ -62,15 +62,20 @@ const Shop_page = (props) => {
           />
         </div>
       </div>
-      <footer>
-        <div className="bg-light py-4">
+      <div>
+        <div
+          className="bg-light py-4"
+          style={{
+            position: "inherit",
+          }}
+        >
           <div className="container text-center">
             <p className="text-muted mb-0 py-2">
               © 2021 ElephantDev All rights reserved.
             </p>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };

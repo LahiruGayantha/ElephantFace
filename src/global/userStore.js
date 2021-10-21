@@ -20,6 +20,12 @@ export const userWorks = createSlice({
       state.id = action.payload.id;
       state.authSuccess = action.payload.authSuccess;
       state.type = action.payload.type;
+      localStorage.setItem("firstName", action.payload.firstName);
+      localStorage.setItem("lastName", action.payload.lastName);
+      localStorage.setItem("email", action.payload.email);
+      localStorage.setItem("id", action.payload.id);
+      localStorage.setItem("authSuccess", action.payload.authSuccess);
+      localStorage.setItem("type", action.payload.type);
     },
   },
 });

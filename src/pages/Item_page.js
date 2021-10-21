@@ -55,7 +55,7 @@ const Item_page = (props) => {
                 <h5 class="card-title">Rs. {data.unitPrice}</h5>
                 <br></br>
                 <h6 class="card-subtitle mb-2 text-muted">Qty</h6>
-                <div className="col-6">
+                <div className="col-5 text-center">
                   <select
                     value={data.qty}
                     onChange={(e) =>
@@ -67,7 +67,7 @@ const Item_page = (props) => {
                           parseFloat(e.target.value),
                       }))
                     }
-                    class="form-select"
+                    class="form-control form-control-sm"
                     aria-label="Default select example"
                   >
                     <option selected>1</option>

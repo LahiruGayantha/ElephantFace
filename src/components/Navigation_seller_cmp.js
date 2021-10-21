@@ -13,45 +13,63 @@ const Navigation_cmp = (props) => {
 
   return (
     <div
-      className="mb-2 row text-center align-items-center shadow-sm"
+      className="mb-0 row text-center align-items-center shadow-sm"
       style={{ backgroundColor: "#f79c4d" }}
     >
       <div className="col-3 text-end">
         <img src={Logo} width={80} className="img-fluid" alt="..." />
       </div>
-      <div className="col-3 m-4 text-start pt-2">
+      <div className="col-3 mt-4 text-start">
         <h3 style={{ color: "black" }} className="mt-1">
           Elephant Face
         </h3>
         <p style={{ color: "white" }}>Shoping on your own way</p>
       </div>
-      <div className="col-3 m-2">
+      <div className="col-3 mt-4">
         <nav
-          className="nav nav-masthead justify-content-left"
-          style={{ color: "black", fontSize: 18 }}
+          className="nav nav-masthead justify-content-left pb-0"
+          style={{ fontSize: 18, fontWeight: "bold" }}
         >
-          <Link
-            to={"/seller/shop"}
-            style={{ color: "black" }}
-            className="nav-link"
-          >
-            Products
-          </Link>
-          <a
-            style={{ color: "black" }}
-            className="nav-link active"
-            aria-current="page"
-            href=""
-            data-bs-toggle="modal"
-            data-bs-target="#signOut_modal_cmp"
-            onClick={props.onClick}
-          >
-            Sign out
-          </a>
+          <div>
+            <i
+              style={{ color: "black", fontSize: 24, fontWeight: "bold" }}
+              className={"fab fa-product-hunt"}
+            ></i>
+            <Link
+              to={"/seller/shop"}
+              style={{ color: "black" }}
+              className="nav-link"
+            >
+              Products
+            </Link>
+          </div>
 
-          <p style={{ color: "black" }} className="nav-link">
-            {logedInUser}
-          </p>
+          <div>
+            <i
+              style={{ color: "black", fontSize: 24, fontWeight: "bold" }}
+              className={"fas fa-sign-out-alt"}
+            ></i>
+            <a
+              style={{ color: "black" }}
+              className="nav-link active"
+              aria-current="page"
+              href=""
+              data-bs-toggle="modal"
+              data-bs-target="#signOut_modal_cmp"
+              onClick={props.onClick}
+            >
+              Sign out
+            </a>
+          </div>
+          <div>
+            <i
+              style={{ color: "black", fontSize: 24, fontWeight: "bold" }}
+              className={"fas fa-user"}
+            ></i>
+            <p style={{ color: "black" }} className="nav-link">
+              {logedInUser}
+            </p>
+          </div>
         </nav>
       </div>
       <Confirmation_modal_cmp
@@ -62,6 +80,7 @@ const Navigation_cmp = (props) => {
         onClickBtn2={() => {
           dispatch(changeUser({ ...initialState }));
           history.push("/seller");
+          localStorage.removeItem("authSuccess");
         }}
       />
     </div>

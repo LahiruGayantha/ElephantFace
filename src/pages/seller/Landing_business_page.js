@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Logo from "../../assets/logo_nobackground.png";
 import Cart from "../../assets/cart.png";
 import { useHistory } from "react-router-dom";
@@ -43,6 +43,34 @@ const Landing_business_page = (props) => {
       })
       .catch(() => setErrors({ email: "User does not exist.", password: "" }));
   };
+
+  const checkUserDetails = () => {
+    const firstName = localStorage.getItem("firstName");
+    const lastName = localStorage.getItem("lastName");
+    const email = localStorage.getItem("email");
+    const id = localStorage.getItem("id");
+    const authSuccess = localStorage.getItem("authSuccess");
+    const type = localStorage.getItem("type");
+
+    console.log(authSuccess);
+    if (authSuccess != null && authSuccess != "" && authSuccess != "false") {
+      dispatch(
+        changeUser({
+          firstName,
+          lastName,
+          email,
+          id,
+          authSuccess,
+          type,
+        })
+      );
+      history.push("/seller/shop");
+    }
+  };
+
+  useEffect(() => {
+    checkUserDetails();
+  }, []);
 
   return (
     <div className="container-fluid" style={{ backgroundColor: "#f79c4d" }}>
@@ -107,12 +135,20 @@ const Landing_business_page = (props) => {
                   )}
                 </div>
                 <div className="row">
-                  <div className="col text-start">
+                  <div className="col-5 text-start">
                     <button
                       className="btn btn-primary"
                       onClick={() => submitButtonHandler()}
                     >
                       Sign In
+                    </button>
+                  </div>
+                  <div className="col-7 text-end">
+                    <button
+                      className="btn btn-outline-dark"
+                      onClick={() => history.push("/")}
+                    >
+                      Sign In as buyer
                     </button>
                   </div>
                 </div>
@@ -139,7 +175,7 @@ const Landing_business_page = (props) => {
           fontWeight: "bold",
         }}
       >
-        <h4 style={{ color: "#f79c4d", paddingTop: 10 }}>Our Clients</h4>
+        <h4 style={{ color: "#f79c4d", paddingTop: 10 }}>Our Partners</h4>
       </div>
       <div className="row pt-4 bg-white justify-content-center">
         <div className="row mt-4 mb-4 text-center w-100">
