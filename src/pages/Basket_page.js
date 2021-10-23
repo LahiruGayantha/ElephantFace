@@ -61,7 +61,7 @@ const Basket_page = (props) => {
       <div className="container pt-4">
         <div className="row mt-5">
           <div className="col-8">
-            <h2>Your Basket</h2>
+            <h2>Your Shoping Cart</h2>
             <hr></hr>
             {dataset.map((item) => (
               <BasketRow_cmp
@@ -77,7 +77,7 @@ const Basket_page = (props) => {
             ))}
           </div>
           <div className="offset-1 col-3">
-            <h2>Order Summary</h2>
+            <h2>Cart Summary</h2>
             <hr></hr>
             <br></br>
 

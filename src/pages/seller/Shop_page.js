@@ -26,7 +26,7 @@ const Shop_page = (props) => {
             image:
               "https://cdn.pixabay.com/photo/2017/04/20/07/07/add-2244771_960_720.png",
             name: "Create new item",
-            unitPrice: "Post items to expan your shop.",
+            unitPrice: "Post items to make your shop larger.",
             id: "",
           },
           ...result.data,

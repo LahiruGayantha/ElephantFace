@@ -73,7 +73,7 @@ const Item_page = (props) => {
         <h5>Fill all the details</h5>
         <hr></hr>
         <div className="row mt-5">
-          <div className="offset-2 col-4">
+          <div className="offset-2 col-4 text-start">
             <img
               src={data.image}
               width={"100%"}
@@ -89,13 +89,14 @@ const Item_page = (props) => {
               <input
                 type="text"
                 class="form-control"
-                placeholder="Username"
-                aria-label="Username"
+                placeholder="Item name"
+                aria-label="ItemName"
                 aria-describedby="basic-addon1"
                 value={data.image}
                 onChange={(e) => textChange("image", e.target.value)}
               />
             </div>
+            <label className="mb-3">200 charactors only</label>
           </div>
           <div className="col-4 text-start">
             <div class="input-group mb-3">
@@ -114,16 +115,17 @@ const Item_page = (props) => {
                 onChange={(e) => textChange("name", e.target.value)}
               />
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group mb-1">
               <textarea
                 class="form-control"
                 aria-label="With textarea"
                 placeholder="Description"
                 value={data.description}
                 onChange={(e) => textChange("description", e.target.value)}
-                rows="12"
+                rows="5"
               ></textarea>
             </div>
+            <label className="mb-3">200 charactors only</label>
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon1">
@@ -145,7 +147,8 @@ const Item_page = (props) => {
                 data.description == "" ||
                 data.image == "" ||
                 data.name == "" ||
-                data.unitPrice == ""
+                data.unitPrice == "" ||
+                data.description.split(" ").length > 200
               }
               class="btn btn-primary"
               data-bs-toggle="modal"

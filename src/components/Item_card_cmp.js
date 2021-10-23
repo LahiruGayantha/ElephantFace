@@ -11,7 +11,7 @@ const Item_card_cmp = (props) => {
             <div className="card-body">
               <p className="card-text">{item.name}</p>
               <div className="d-flex justify-content-between align-items-center">
-                <small className="text-muted">Rs.{item.unitPrice}</small>
+                <small className="text-muted">Rs. {item.unitPrice}</small>
                 <div className="btn-group">
                   <button
                     type="button"

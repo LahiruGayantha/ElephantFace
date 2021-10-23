@@ -14,7 +14,7 @@ const Item_card_cmp = (props) => {
               <div className="d-flex justify-content-between align-items-center">
                 <small className="text-muted">
                   {item.id !== ""
-                    ? "Rs ." + item.unitPrice
+                    ? "Rs. " + item.unitPrice
                     : "" + item.unitPrice}
                 </small>
                 <div className="btn-group">
