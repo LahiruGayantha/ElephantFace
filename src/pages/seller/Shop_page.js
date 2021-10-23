@@ -40,7 +40,14 @@ const Shop_page = (props) => {
   }, []);
 
   const deleteItem = (id) => {
-    axios.delete("/item/delete/" + id).then(() => getItems());
+    axios
+      .delete("/item/delete/" + id)
+      .then(() => getItems())
+      .catch((error) =>
+        alert(
+          "Some customer has order this item. You cannot remove ordered item from the list."
+        )
+      );
   };
 
   return (

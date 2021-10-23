@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import Logo from "../assets/logo_nobackground.png";
 import Cart from "../assets/cart.png";
 import { useHistory } from "react-router-dom";
@@ -37,6 +37,39 @@ const Landing_page = (props) => {
       })
       .catch(() => setErrors({ email: "User does not exist.", password: "" }));
   };
+
+  const checkUserDetails = () => {
+    const firstName = localStorage.getItem("firstName");
+    const lastName = localStorage.getItem("lastName");
+    const email = localStorage.getItem("email");
+    const id = localStorage.getItem("id");
+    const authSuccess = localStorage.getItem("authSuccess");
+    const type = localStorage.getItem("type");
+
+    console.log(authSuccess);
+    if (
+      authSuccess != null &&
+      authSuccess != "" &&
+      authSuccess != "false" &&
+      type != "seller"
+    ) {
+      dispatch(
+        changeUser({
+          firstName,
+          lastName,
+          email,
+          id,
+          authSuccess,
+          type,
+        })
+      );
+      history.push("/shop");
+    }
+  };
+
+  useEffect(() => {
+    checkUserDetails();
+  }, []);
 
   return (
     <div className="container-fluid bg-secondary">

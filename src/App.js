@@ -14,9 +14,6 @@ function App() {
   return (
     <div>
       <Switch>
-        <Route exact path="/">
-          <Landing_page />
-        </Route>
         {logedInUser && (
           <Route exact path="/shop">
             <Shop_page />
@@ -34,6 +31,9 @@ function App() {
         )}
         <Route path="/seller">
           <SellerPages />
+        </Route>
+        <Route path="/">
+          <Landing_page />
         </Route>
       </Switch>
     </div>

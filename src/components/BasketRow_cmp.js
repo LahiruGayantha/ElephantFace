@@ -39,14 +39,15 @@ const BasketRow_cmp = (props) => {
           aria-label="Default select example"
           onChange={(e) => setQty(e.target.value)}
         >
-          <option selected>1</option>
           {!editable ? (
             <option selected value={qty}>
               {qty}
             </option>
           ) : (
-            [2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
-              <option value={item}>{item}</option>
+            [1, 2, 3, 4, 5, 6, 7, 8, 9].map((item) => (
+              <option selected={item == qty} disabled={!editable} value={item}>
+                {item}
+              </option>
             ))
           )}
         </select>
